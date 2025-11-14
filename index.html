@@ -14,10 +14,30 @@
         padding: 20px;
     }
 
-    h1 {
-        font-size: 32px;
-        margin-bottom: 8px;
+    /* Mini Pekka ORTA BUTON */
+    #assistantToggle {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        z-index: 9999;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: 0.2s;
     }
+
+    #assistantToggle:hover {
+        background-color: #005fcc;
+        transform: translateX(-50%) scale(1.05);
+    }
+</style>
+
 
     #pekka-btn {
         position: fixed;
@@ -115,5 +135,6 @@
 
 </body>
 </html>
+
 
 
