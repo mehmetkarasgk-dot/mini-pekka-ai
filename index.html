@@ -1,210 +1,327 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mini Pekka Sözlük ⚔️🤖</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deneme Site - Mini Pekka Ayar Testi</title>
 
-<style>
+  <style>
     body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(#1a1a1a, #333);
-        color: white;
-        padding: 20px;
-        /* yazılar solda kalsın */
-        text-align: left;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#1f1f1f, #3b3b3b);
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      padding: 24px;
+      max-width: 900px;
     }
 
     h1 {
-        margin-top: 80px; /* butonla çakışmasın diye biraz aşağıya itiyoruz */
+      margin-top: 0;
+      font-size: 32px;
     }
 
-    /* ÜSTTE PARLAYAN MINI PEKKA BUTONU */
-    #assistantToggle {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 12px 28px;
-        border-radius: 50px;
-        font-size: 18px;
-        cursor: pointer;
-        font-weight: bold;
-        z-index: 9999;
-
-        /* Glow efekti */
-        box-shadow: 0 0 12px #009dff, 0 0 24px #00bfff;
-        animation: pekkaGlow 2s infinite alternate ease-in-out;
-        transition: 0.2s;
+    p {
+      font-size: 16px;
+      line-height: 1.5;
     }
 
-    #assistantToggle:hover {
-        background-color: #005fcc;
-        transform: translateX(-50%) scale(1.05);
-        box-shadow: 0 0 20px #4ecbff, 0 0 40px #36e3ff;
+    #extra-area {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.1);
+      min-height: 40px;
     }
 
-    @keyframes pekkaGlow {
-        0% {
-            box-shadow: 0 0 10px #008cff, 0 0 20px #00aaff;
-        }
-        100% {
-            box-shadow: 0 0 20px #3bd3ff, 0 0 45px #58f1ff;
-        }
+    #extraButton {
+      margin-top: 16px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background: #ffb703;
+      color: #222;
+      font-weight: bold;
     }
 
-    /* ORTADAKİ SOHBET PANELİ */
-    #panel {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 340px;
-        height: 480px;
-        background: #ffffff;
-        border-radius: 14px;
-        color: black;
-        display: none; /* başlangıçta kapalı */
-        flex-direction: column;
-        box-shadow: 0 0 20px rgba(0,0,0,0.3);
-        z-index: 9998;
-        overflow: hidden;
+    /* Sol alttaki AYARLAR butonu */
+    #settingsToggle {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      background: #ff8800;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      z-index: 9999;
     }
 
-    #messages {
-        flex: 1;
-        padding: 10px;
-        overflow-y: auto;
-        background: #f1f1f1;
+    #settingsToggle:hover {
+      background: #ff9900;
+      transform: translateY(-1px);
     }
 
-    .msg {
-        padding: 8px 12px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        max-width: 80%;
-        word-wrap: break-word;
-        font-size: 14px;
+    /* Ayar paneli */
+    #settingsPanel {
+      position: fixed;
+      left: 16px;
+      bottom: 64px;
+      width: 260px;
+      background: #ffffff;
+      color: #222;
+      border-radius: 12px;
+      box-shadow: 0 0 14px rgba(0,0,0,0.5);
+      padding: 12px;
+      display: none;
+      z-index: 9998;
+      font-size: 13px;
     }
 
-    .me {
-        background: #d8ecff;
-        margin-left: auto;
+    #settingsPanel h3 {
+      margin: 0 0 8px 0;
+      font-size: 15px;
     }
 
-    .bot {
-        background: #fff;
-        border: 1px solid #ddd;
+    #settingsPanel label {
+      font-weight: bold;
+      font-size: 12px;
+      display: block;
+      margin-top: 8px;
+      margin-bottom: 2px;
     }
 
-    #input-area {
-        display: flex;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-        background: white;
+    #settingsPanel input[type="text"],
+    #settingsPanel textarea {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 12px;
+      padding: 5px 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
     }
 
-    #input {
-        flex: 1;
-        padding: 8px;
-        border-radius: 50px;
-        border: 1px solid #ccc;
-        font-size: 14px;
+    #settingsPanel textarea {
+      min-height: 50px;
     }
 
-    #send {
-        padding: 8px 14px;
-        margin-left: 6px;
-        border-radius: 50px;
-        border: none;
-        background: #4fa3ff;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
+    #settingsPanel .btn-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      flex-wrap: wrap;
     }
-</style>
+
+    #settingsPanel button.small {
+      flex: 1;
+      padding: 6px 4px;
+      font-size: 11px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #settingsPanel button.apply {
+      background: #0077ff;
+      color: white;
+    }
+
+    #settingsPanel button.reset {
+      background: #eeeeee;
+      color: #222;
+    }
+
+    #settingsPanel button.close {
+      background: #ff4444;
+      color: white;
+    }
+
+    #settingsPanel button.toggle-extra-btn {
+      background: #00b894;
+      color: white;
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    #settings-info {
+      font-size: 11px;
+      margin-top: 6px;
+      color: #666;
+    }
+  </style>
 </head>
 
 <body>
 
-<h1>Mini Pekka Sözlük ⚔️🤖</h1>
-<p>Üstteki <b>Mini Pekka</b> düğmesine basarak asistanı açabilirsin.</p>
+  <div class="container">
+    <h1 id="mainTitle">Deneme Başlığı</h1>
+    <p id="mainText">
+      Burası deneme sitemiz. Bu sayfada tasarımla oynayıp, sonra ana siteye uygulayacağız.
+      Sol altta bulunan <b>Ayarlar</b> butonuna tıklayıp şifreyi girdikten sonra
+      bu yazıyı ve başlığı değiştirebilirsin.
+    </p>
 
-<!-- ÜSTTE PARLAYAN BUTON -->
-<button id="assistantToggle">Mini Pekka</button>
-
-<!-- ORTADAKİ SOHBET PANELİ -->
-<div id="panel">
-    <div id="messages"></div>
-    <div id="input-area">
-        <input id="input" type="text" placeholder="Bir şey yaz..." />
-        <button id="send">Gönder</button>
+    <div id="extra-area">
+      Buraya ekstra notlar, kutucuklar veya deneme yazıları ekleyebilirsin.
     </div>
-</div>
 
-<script>
-    // Elementleri yakala
-    const toggle   = document.getElementById("assistantToggle");
-    const panel    = document.getElementById("panel");
-    const input    = document.getElementById("input");
-    const sendBtn  = document.getElementById("send");
-    const messages = document.getElementById("messages");
+    <!-- Ekstra buton (başta gizli) -->
+    <button id="extraButton" style="display:none;">Ekstra Buton</button>
+  </div>
 
-    // Panel aç/kapa
-    toggle.addEventListener("click", () => {
-        const isOpen = panel.style.display === "flex";
-        panel.style.display = isOpen ? "none" : "flex";
-    });
+  <!-- Sol alttaki AYARLAR butonu -->
+  <button id="settingsToggle">⚙ Ayarlar</button>
 
-    function addMessage(text, who) {
-        const div = document.createElement("div");
-        div.classList.add("msg");
-        if (who === "me") div.classList.add("me");
-        if (who === "bot") div.classList.add("bot");
-        div.textContent = text;
-        messages.appendChild(div);
-        messages.scrollTop = messages.scrollHeight;
-    }
+  <!-- AYAR PANELİ -->
+  <div id="settingsPanel">
+    <h3>Tasarım Ayarları</h3>
+    <div id="settings-info">🔒 Ayarları değiştirmek için şifre: <b>pancakes!</b></div>
 
-    function answer(text) {
-        const lower = text.toLowerCase().trim();
-        let reply = "";
+    <label for="titleInput">Başlık</label>
+    <input type="text" id="titleInput" placeholder="Yeni başlık yaz..." />
 
-        if (lower === "pancakes") {
-            reply = "🥞 Mini Pekka güç modunu açtı!";
-        } else if (lower === "busy") {
-            reply = "\"busy\" = meşgul";
+    <label for="textInput">Ana Yazı</label>
+    <textarea id="textInput" placeholder="Ana yazıyı buradan değiştirebilirsin."></textarea>
+
+    <label for="extraInput">Ekstra Bölge (alt kutu)</label>
+    <textarea id="extraInput" placeholder="Ekstra yazıları buraya yaz. Boş bırakırsan silinir."></textarea>
+
+    <label for="extraBtnText">Ekstra Buton Yazısı</label>
+    <input type="text" id="extraBtnText" placeholder="Örn: Tıkla Bakalım" />
+
+    <button class="small toggle-extra-btn" id="toggleExtraBtn">Ekstra Butonu Aç / Kapat</button>
+
+    <div class="btn-row">
+      <button class="small apply" id="applyChanges">Uygula</button>
+      <button class="small reset" id="resetDefaults">Sıfırla</button>
+      <button class="small close" id="closeSettings">Kapat</button>
+    </div>
+  </div>
+
+  <script>
+    const settingsToggle = document.getElementById("settingsToggle");
+    const settingsPanel  = document.getElementById("settingsPanel");
+    const mainTitle      = document.getElementById("mainTitle");
+    const mainText       = document.getElementById("mainText");
+    const extraArea      = document.getElementById("extra-area");
+    const extraButton    = document.getElementById("extraButton");
+
+    const titleInput     = document.getElementById("titleInput");
+    const textInput      = document.getElementById("textInput");
+    const extraInput     = document.getElementById("extraInput");
+    const extraBtnText   = document.getElementById("extraBtnText");
+    const applyBtn       = document.getElementById("applyChanges");
+    const resetBtn       = document.getElementById("resetDefaults");
+    const closeBtn       = document.getElementById("closeSettings");
+    const toggleExtraBtn = document.getElementById("toggleExtraBtn");
+
+    let isUnlocked = false;
+
+    // Varsayılan metinleri saklayalım (reset için)
+    const defaultTitle = mainTitle.textContent;
+    const defaultText  = mainText.textContent.trim();
+    const defaultExtra = extraArea.innerHTML;
+
+    // Ayar butonuna tıklayınca
+    settingsToggle.addEventListener("click", () => {
+      if (!isUnlocked) {
+        const pwd = prompt("Ayarlar için şifreyi gir (ipucu: pancakes!)");
+        if (pwd === "pancakes!") {
+          isUnlocked = true;
+          alert("Ayarlar açıldı! 🎉");
+          // Mevcut değerleri inputlara doldur
+          titleInput.value   = mainTitle.textContent;
+          textInput.value    = mainText.textContent.trim();
+          extraInput.value   = extraArea.innerHTML.trim();
+          extraBtnText.value = extraButton.style.display === "none" ? "" : extraButton.textContent;
         } else {
-            reply = "Mini Pekka bunu anlayamadı ama öğrenmeye devam ediyor! ⚡";
+          alert("Yanlış şifre!");
+          return;
         }
+      }
 
-        addMessage(reply, "bot");
-
-        // ses çal (repo kökünde mini-pekka.mp3 olmalı)
-        try {
-            new Audio("mini-pekka.mp3").play();
-        } catch (e) {
-            console.log("Ses çalınamadı:", e);
-        }
-    }
-
-    function send() {
-        const text = input.value.trim();
-        if (!text) return;
-        addMessage(text, "me");
-        input.value = "";
-        setTimeout(() => answer(text), 300);
-    }
-
-    sendBtn.addEventListener("click", send);
-    input.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") send();
+      // Şifre doğruysa paneli aç/kapa
+      settingsPanel.style.display =
+        settingsPanel.style.display === "none" || settingsPanel.style.display === ""
+          ? "block"
+          : "none";
     });
-</script>
 
+    // Uygula butonu
+    applyBtn.addEventListener("click", () => {
+      if (!isUnlocked) return;
+
+      // Başlık
+      if (titleInput.value.trim() !== "") {
+        mainTitle.textContent = titleInput.value.trim();
+      }
+
+      // Ana yazı
+      if (textInput.value.trim() !== "") {
+        mainText.textContent = textInput.value.trim();
+      }
+
+      // Ekstra alan (boşsa temizle)
+      if (extraInput.value.trim() === "") {
+        extraArea.innerHTML = "";
+      } else {
+        extraArea.innerHTML = extraInput.value;
+      }
+
+      // Ekstra buton yazısı (buton açıksa uygula)
+      if (extraButton.style.display !== "none" && extraBtnText.value.trim() !== "") {
+        extraButton.textContent = extraBtnText.value.trim();
+      }
+
+      alert("Değişiklikler uygulandı ✅");
+    });
+
+    // Sıfırla butonu
+    resetBtn.addEventListener("click", () => {
+      if (!isUnlocked) return;
+
+      mainTitle.textContent   = defaultTitle;
+      mainText.textContent    = defaultText;
+      extraArea.innerHTML     = defaultExtra;
+      extraButton.style.display = "none";
+      extraButton.textContent = "Ekstra Buton";
+
+      titleInput.value   = defaultTitle;
+      textInput.value    = defaultText;
+      extraInput.value   = defaultExtra;
+      extraBtnText.value = "";
+
+      alert("Varsayılan ayarlara dönüldü 🔁");
+    });
+
+    // Panel kapat
+    closeBtn.addEventListener("click", () => {
+      settingsPanel.style.display = "none";
+    });
+
+    // Ekstra butonu aç/kapat
+    toggleExtraBtn.addEventListener("click", () => {
+      if (!isUnlocked) return;
+      if (extraButton.style.display === "none" || extraButton.style.display === "") {
+        extraButton.style.display = "inline-block";
+        if (extraBtnText.value.trim() !== "") {
+          extraButton.textContent = extraBtnText.value.trim();
+        }
+      } else {
+        extraButton.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
