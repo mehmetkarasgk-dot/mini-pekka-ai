@@ -1,1 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mini Pekka Sözlük ⚔️🤖</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(#1a1a1a, #333);
+        color: white;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    #pekka-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4fa3ff;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 50px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    #panel {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        width: 330px;
+        height: 480px;
+        background: #fff;
+        border-radius: 14px;
+        color: black;
+        display: none;
+        flex-direction: column;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    #messages {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+        background: #f1f1f1;
+    }
+
+    .msg {
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        max-width: 80%;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 14px;
+    }
+    .me { background: #d8ecff; margin-left: auto; }
+    .bot { background: #fff; border: 1px solid #ddd; }
+
+    #input-area {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+        background: #fafafa;
+    }
+
+    #input {
+        flex: 1;
+        padding: 8px;
+        border-radius: 50px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    #send {
+        padding: 8px 14px;
+        margin-left: 6px;
+        border-radius: 50px;
+        border: none;
+        background: #4fa3ff;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h1>Mini Pekka Sözlük ⚔️🤖</h1>
+<p>Sağ üstteki <b>Mini Pekka</b> düğmesine basarak asistanı açabilirsin.</p>
+
+<button id="pekka-btn">Mini Pekka</button>
+
+<div id="panel">
+    <div id="messages"></div>
+    <div id="input-area">
+        <input id="input" type="text" placeholder="Bir şey yaz..." />
+        <button id="send">Gönder</button>
+    </div>
+</div>
+
+<audio id="pancake-sound" src="mini-pekka.mp3"></audio>
+
+<script src="mini.js"></script>
+
+</body>
+</html>
+
 
