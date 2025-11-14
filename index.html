@@ -15,26 +15,48 @@
     }
 
     /* Mini Pekka ORTA BUTON */
-    #assistantToggle {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 8px 18px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        z-index: 9999;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: 0.2s;
-    }
+   /* ✨ Parlayan, animasyonlu Mini Pekka Butonu ✨ */
+#assistantToggle {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 28px;
 
-    #assistantToggle:hover {
-        background-color: #005fcc;
-        transform: translateX(-50%) scale(1.05);
+    background: linear-gradient(90deg, #005eff, #00b3ff);
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+
+    /* Glow efekti */
+    box-shadow: 0 0 12px #009dff, 0 0 24px #00bfff;
+    animation: pekkaGlow 2s infinite alternate ease-in-out;
+
+    z-index: 9999;
+    transition: 0.2s;
+}
+
+/* Hover animasyonu */
+#assistantToggle:hover {
+    transform: translateX(-50%) scale(1.08);
+    box-shadow: 0 0 16px #4ecbff, 0 0 40px #36e3ff;
+}
+
+/* ✨ Glow animasyonu */
+@keyframes pekkaGlow {
+    0% {
+        box-shadow: 0 0 10px #008cff, 0 0 20px #00aaff;
+    }
+    100% {
+        box-shadow: 0 0 20px #3bd3ff, 0 0 45px #58f1ff;
+    }
+}
+
+
+   
     }
 </style>
 
@@ -135,6 +157,7 @@
 
 </body>
 </html>
+
 
 
 
